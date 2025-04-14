@@ -1,6 +1,7 @@
+# Use lightweight Python base
 FROM python:3.11-slim
 
-# Install ffmpeg, curl, and yt-dlp
+# Install ffmpeg, curl, and yt-dlp binary
 RUN apt-get update && \
     apt-get install -y ffmpeg curl && \
     curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/bin/yt-dlp && \
@@ -10,14 +11,14 @@ RUN apt-get update && \
 # Set working directory
 WORKDIR /app
 
-# Copy your app code
+# Copy all project files
 COPY . .
 
-# Install Python deps
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Expose the port Render expects
 EXPOSE 10000
 
-# Start the app with Gunicorn
+# Start the app using Gunicorn
 CMD ["gunicorn", "-b", "0.0.0.0:10000", "app:app"]
