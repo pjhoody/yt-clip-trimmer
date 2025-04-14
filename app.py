@@ -33,7 +33,7 @@ def index():
 
         try:
             logging.info(f"Downloading video from {url}")
-            subprocess.run(["yt-dlp", "-f", "best", "-o", input_file, url], check=True)
+            subprocess.run(["/usr/local/bin/yt-dlp", "-f", "best", "-o", input_file, url], check=True)
 
             logging.info(f"Trimming video from {start} to {end}")
             subprocess.run([
