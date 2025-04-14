@@ -49,4 +49,14 @@ def index():
 
         except Exception as ex:
             logging.exception("Unexpected error")
-            return f"<p><b>Unexpected Error:</b> {ex}</p><
+            return f"<p><b>Unexpected Error:</b> {ex}</p><a href='/'>Go back</a>"
+
+        finally:
+            for f in [input_file, output_file]:
+                if os.path.exists(f):
+                    os.remove(f)
+
+    return render_template_string(HTML_FORM)
+
+if __name__ == '__main__':
+    app.run(debug=True)
